@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER-ESP by Anna Laitadze: English for Cybersecurity Professionals</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#090d16',
+                            card: '#111827',
+                            border: '#1e293b',
+                            accent: '#06b6d4',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            purple: '#a855f7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #090d16;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* 3D Card Flip Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
+
+    <!-- Top Header Navigation -->
+    <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3.5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Brand & Author Info -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 p-0.5 shadow-lg shadow-cyan-500/20">
+                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-black text-lg md:text-xl tracking-tight bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
+                            CYBER-ESP
+                        </h1>
+                        <span class="text-xs font-mono bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 px-2 py-0.5 rounded-full font-semibold">v3.5 ISO Edition</span>
+                    </div>
+                    <p class="text-xs text-slate-400">English for Cybersecurity Professionals & ISO Audit Certification • <span class="text-emerald-400 font-medium">Anna Laitadze</span></p>
+                </div>
+            </div>
+
+            <!-- Global Action Bar & Mastery Progress -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs font-mono">
+                    <span class="text-slate-400">Mastered:</span>
+                    <span id="masteredCount" class="text-emerald-400 font-bold text-sm">0</span>
+                    <span class="text-slate-600">/</span>
+                    <span id="totalTermsCount" class="text-slate-300">84</span>
+                </div>
+
+                <button onclick="openDeployModal()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-medium transition">
+                    <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                    <span>Deploy Info</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Secondary Navigation Tabs -->
+        <nav class="max-w-7xl mx-auto mt-3 pt-2 border-t border-slate-800/60 overflow-x-auto no-scrollbar">
+            <div class="flex items-center gap-2 min-w-max">
+                <button onclick="switchTab('flashcards')" id="tabBtn-flashcards" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    <span>Flashcards Deck</span>
+                </button>
+
+                <button onclick="switchTab('glossary')" id="tabBtn-glossary" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                    <span>Master Glossary Matrix</span>
+                </button>
+
+                <button onclick="switchTab('matcher')" id="tabBtn-matcher" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Threat & Control Matcher</span>
+                </button>
+
+                <button onclick="switchTab('gapfill')" id="tabBtn-gapfill" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    <span>SOC & ISO Incident Logs</span>
+                </button>
+
+                <button onclick="switchTab('clauses')" id="tabBtn-clauses" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    <span>Clause Matcher</span>
+                </button>
+
+                <button onclick="switchTab('quiz')" id="tabBtn-quiz" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                    <span>CISO & Auditor Quizzes</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Dynamic Container -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 flex-1 w-full">
+
+        <!-- TAB 1: FLASHCARDS MODE -->
+        <section id="tab-flashcards" class="tab-content block space-y-6">
+            
+            <!-- Filter Bar & Search -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider mr-1">Category:</span>
+                    <button onclick="filterCategory('All')" id="catBtn-All" class="cat-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-cyan-500 text-slate-950">All Terms</button>
+                    <button onclick="filterCategory('CIA Triad & ISO Standards')" id="catBtn-CIA Triad & ISO Standards" class="cat-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 transition">CIA & ISO Exam</button>
+                    <button onclick="filterCategory('Threats & Attacks')" id="catBtn-Threats & Attacks" class="cat-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 transition">Threats & Attacks</button>
+                    <button onclick="filterCategory('Perimeter & Defense')" id="catBtn-Perimeter & Defense" class="cat-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 transition">Defense & Controls</button>
+                    <button onclick="filterCategory('Cryptography & IAM')" id="catBtn-Cryptography & IAM" class="cat-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 transition">Crypto & IAM</button>
+                    <button onclick="filterCategory('Incident Response & DFIR')" id="catBtn-Incident Response & DFIR" class="cat-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 transition">IR & DFIR</button>
+                </div>
+
+                <div class="flex items-center gap-3 w-full md:w-auto">
+                    <div class="relative w-full md:w-64">
+                        <input type="text" id="cardSearchInput" oninput="handleCardSearch()" placeholder="Search deck terminology..." class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-9 pr-4 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
+                        <svg class="w-4 h-4 text-slate-500 absolute left-3 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <button onclick="shuffleDeck()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-lg text-xs font-semibold border border-slate-700 flex items-center gap-1.5 transition shrink-0" title="Shuffle current deck">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span>Shuffle</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Definition-First Interactive Flashcard Component -->
+            <div class="max-w-3xl mx-auto my-8">
+                <div id="flashcardContainer" class="perspective-1000 w-full min-h-[420px] cursor-pointer group" onclick="flipCard()">
+                    <div id="flashcardInner" class="transform-style-3d relative w-full h-full rounded-2xl border border-slate-800 bg-slate-900/90 shadow-2xl transition-all duration-500">
+                        
+                        <!-- CARD FRONT: Definition-First Architecture -->
+                        <div class="backface-hidden p-8 flex flex-col justify-between min-h-[420px]">
+                            <div class="flex items-center justify-between">
+                                <span id="cardCategoryBadge" class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-950 text-cyan-400 border border-cyan-800">
+                                    CIA Triad & ISO Standards
+                                </span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-slate-500 font-mono">DEFINITION FIRST</span>
+                                    <span id="masteredBadgeFront" class="hidden px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">✓ MASTERED</span>
+                                </div>
+                            </div>
+
+                            <!-- Procedural Graphic & Definition Body -->
+                            <div class="my-6 space-y-4">
+                                <div id="cardFrontGraphic" class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                                    <!-- Dynamic SVG icon inserted here -->
+                                </div>
+                                <div>
+                                    <h3 class="text-xs font-mono uppercase tracking-widest text-slate-400 mb-2">Technical & Executive Definition:</h3>
+                                    <p id="cardFrontDefinition" class="text-lg md:text-xl font-medium text-slate-100 leading-relaxed">
+                                        Loading term definition...
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                                <span class="flex items-center gap-1.5 text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform">
+                                    <span>Click or press Space to reveal target term</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </span>
+                                <span class="text-slate-500 font-mono">Card <span id="cardCurrentIndex">1</span> / <span id="cardTotalCount">84</span></span>
+                            </div>
+                        </div>
+
+                        <!-- CARD BACK: Target Terminology, IPA, TTS, Collocations & Context -->
+                        <div class="backface-hidden rotate-y-180 absolute inset-0 p-8 flex flex-col justify-between bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 rounded-2xl border border-cyan-500/30">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span id="cardCategoryBadgeBack" class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800">
+                                        Category
+                                    </span>
+                                    <button onclick="event.stopPropagation(); toggleMasteryCurrent();" id="masteryToggleBtn" class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 flex items-center gap-1.5 transition">
+                                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span id="masteryBtnText">Mark as Mastered</span>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-start justify-between gap-4">
+                                    <div>
+                                        <h2 id="cardBackTerm" class="text-2xl md:text-3xl font-extrabold text-cyan-400 tracking-tight">
+                                            Target Term
+                                        </h2>
+                                        <p id="cardBackIPA" class="text-sm font-mono text-slate-400 mt-1">/ipa_transcription/</p>
+                                    </div>
+                                    <button onclick="event.stopPropagation(); speakTerm();" class="p-3 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl transition flex items-center justify-center shrink-0" title="Listen Native Speech Synthesis">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                                    </button>
+                                </div>
+
+                                <!-- Collocation Grid -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-4">
+                                    <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3">
+                                        <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest font-bold block mb-1">Verb + Noun Collocation</span>
+                                        <p id="cardBackVerbCol" class="text-xs font-semibold text-slate-200">Collocation...</p>
+                                    </div>
+                                    <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3">
+                                        <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold block mb-1">Adjective / Compound Term</span>
+                                        <p id="cardBackAdjCol" class="text-xs font-semibold text-slate-200">Compound term...</p>
+                                    </div>
+                                </div>
+
+                                <!-- CISO / Lead Auditor Context Sentence -->
+                                <div class="bg-slate-950/90 border border-emerald-500/20 rounded-xl p-3.5">
+                                    <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold block mb-1">CISO & ISO Auditor Executive Context</span>
+                                    <p id="cardBackContext" class="text-xs text-slate-300 italic leading-relaxed">
+                                        Executive context sentence...
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                <span class="text-slate-500">Click to flip back</span>
+                                <span class="text-xs font-mono text-cyan-400">CYBER-ESP Lexicon</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Deck Controls Bar -->
+                <div class="flex items-center justify-between gap-4 mt-6">
+                    <button onclick="prevCard()" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold flex items-center gap-2 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        <span>Previous Card</span>
+                    </button>
+
+                    <button onclick="flipCard()" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-xs transition shadow-lg shadow-cyan-500/20 flex items-center gap-1.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span>Flip Card</span>
+                    </button>
+
+                    <button onclick="nextCard()" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold flex items-center gap-2 transition">
+                        <span>Next Card</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TAB 2: MASTER GLOSSARY MATRIX -->
+        <section id="tab-glossary" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-100">Master Glossary Matrix</h2>
+                        <p class="text-xs text-slate-400 mt-1">Full database of ISO 27001/31000 terms, CIA Triad principles, threats & defenses with pronunciation guides.</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                        <select id="glossaryCategorySelect" onchange="renderGlossaryTable()" class="w-full sm:w-48 bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-cyan-500">
+                            <option value="All">All Categories</option>
+                            <option value="CIA Triad & ISO Standards">CIA Triad & ISO Standards</option>
+                            <option value="Threats & Attacks">Threats & Attacks</option>
+                            <option value="Perimeter & Defense">Perimeter & Defense</option>
+                            <option value="Cryptography & IAM">Cryptography & IAM</option>
+                            <option value="Incident Response & DFIR">Incident Response & DFIR</option>
+                        </select>
+
+                        <input type="text" id="glossarySearchInput" oninput="renderGlossaryTable()" placeholder="Search terms, definitions, collocations..." class="w-full sm:w-64 bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-cyan-500">
+                    </div>
+                </div>
+
+                <!-- Table Wrapper -->
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-950/80 border-b border-slate-800 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                                <th class="p-3.5">Term & IPA</th>
+                                <th class="p-3.5">Category</th>
+                                <th class="p-3.5">Definition</th>
+                                <th class="p-3.5">Collocations</th>
+                                <th class="p-3.5">Executive Context</th>
+                                <th class="p-3.5 text-center">Audio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="glossaryTableBody" class="divide-y divide-slate-800/60 text-xs">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TAB 3: THREAT & CONTROL MATCHER GAME -->
+        <section id="tab-matcher" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-100">Threat & Control Matcher</h2>
+                        <p class="text-xs text-slate-400 mt-1">Connect threat vectors and ISO audit non-conformities with their corresponding security mitigations & ISO controls.</p>
+                    </div>
+
+                    <div class="flex items-center gap-4 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs font-mono">
+                        <div>Score: <span id="matcherScore" class="text-cyan-400 font-bold">0</span></div>
+                        <div class="text-slate-700">|</div>
+                        <div>Streak: <span id="matcherStreak" class="text-emerald-400 font-bold">0</span></div>
+                        <div class="text-slate-700">|</div>
+                        <button onclick="initMatcherGame()" class="text-cyan-400 hover:underline text-xs">Reset Game</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Left Column: Threats & Findings -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-mono text-rose-400 uppercase tracking-wider font-semibold">1. Vulnerability / Audit Finding</h3>
+                        <div id="matcherThreatsContainer" class="space-y-2.5">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Mitigations & ISO Controls -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">2. Mitigation / ISO Annex A Control</h3>
+                        <div id="matcherControlsContainer" class="space-y-2.5">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <div id="matcherFeedback" class="mt-6 p-4 rounded-xl text-xs font-mono hidden text-center"></div>
+            </div>
+        </section>
+
+
+        <!-- TAB 4: SOC & ISO INCIDENT LOGS (GAP FILL) -->
+        <section id="tab-gapfill" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-100">SOC & ISO Audit Incident Logs</h2>
+                        <p class="text-xs text-slate-400 mt-1">Fill in the blanks with target ISO 27001 certification terms, CIA triad breaches, and executive ESP collocations.</p>
+                    </div>
+                    <button onclick="checkGapFillAnswers()" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs transition shadow-lg shadow-emerald-500/20">
+                        Validate Responses
+                    </button>
+                </div>
+
+                <!-- Interactive Memos Container -->
+                <div class="space-y-6">
+                    
+                    <!-- Memo 1: ISO Audit Report -->
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-cyan-400 font-bold">LOG #01: ISO/IEC 27001 Lead Audit Non-Conformity Notice</span>
+                            <span class="text-[10px] font-mono text-slate-500">ISO 27001:2022 Clause 6.1.2</span>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            During the Stage 2 certification audit, the Lead Auditor observed that while the organization established an 
+                            <select id="gap-1" class="gap-input bg-slate-900 border border-slate-700 text-cyan-400 rounded px-2 py-1 text-xs focus:border-cyan-500">
+                                <option value="">-- Choose Term --</option>
+                                <option value="Information Security Management System (ISMS)">Information Security Management System (ISMS)</option>
+                                <option value="Statement of Applicability (SoA)">Statement of Applicability (SoA)</option>
+                                <option value="Buffer Overflow">Buffer Overflow</option>
+                            </select>, 
+                            the documented 
+                            <select id="gap-2" class="gap-input bg-slate-900 border border-slate-700 text-cyan-400 rounded px-2 py-1 text-xs focus:border-cyan-500">
+                                <option value="">-- Choose Term --</option>
+                                <option value="Statement of Applicability (SoA)">Statement of Applicability (SoA)</option>
+                                <option value="Root Cause Analysis (RCA)">Root Cause Analysis (RCA)</option>
+                                <option value="Drive-by Download">Drive-by Download</option>
+                            </select> 
+                            failed to justify the exclusion of Annex A controls regarding encryption key management. This finding was classified as a 
+                            <select id="gap-3" class="gap-input bg-slate-900 border border-slate-700 text-cyan-400 rounded px-2 py-1 text-xs focus:border-cyan-500">
+                                <option value="">-- Choose Term --</option>
+                                <option value="Non-Conformity">Non-Conformity</option>
+                                <option value="Honeypot">Honeypot</option>
+                                <option value="Credential Stuffing">Credential Stuffing</option>
+                            </select>, 
+                            requiring top management to execute a mandatory 
+                            <select id="gap-4" class="gap-input bg-slate-900 border border-slate-700 text-cyan-400 rounded px-2 py-1 text-xs focus:border-cyan-500">
+                                <option value="">-- Choose Term --</option>
+                                <option value="Corrective Action">Corrective Action</option>
+                                <option value="Symmetric Encryption">Symmetric Encryption</option>
+                                <option value="Malvertising">Malvertising</option>
+                            </select> 
+                            plan within 30 days.
+                        </p>
+                    </div>
+
+                    <!-- Memo 2: Incident Response Memo -->
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-emerald-400 font-bold">LOG #02: CISO Incident Briefing - Ransomware Threat</span>
+                            <span class="text-[10px] font-mono text-slate-500">Incident Severity: CRITICAL</span>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            At 03:14 UTC, SOC telemetry flagged an unauthorized payload exfiltrating corporate databases. The breach severely compromised system 
+                            <select id="gap-5" class="gap-input bg-slate-900 border border-slate-700 text-emerald-400 rounded px-2 py-1 text-xs focus:border-cyan-500">
+                                <option value="">-- Choose Term --</option>
+                                <option value="Confidentiality">Confidentiality</option>
+                                <option value="Non-Repudiation">Non-Repudiation</option>
+                                <option value="Acceptable Use Policy (AUP)">Acceptable Use Policy (AUP)</option>
+                            </select>. 
+                            To mitigate lateral movement, DFIR personnel enforced 
+                            <select id="gap-6" class="gap-input bg-slate-900 border border-slate-700 text-emerald-400 rounded px-2 py-1 text-xs focus:border-cyan-500">
+                                <option value="">-- Choose Term --</option>
+                                <option value="Zero Trust Architecture (ZTA)">Zero Trust Architecture (ZTA)</option>
+                                <option value="Inherent Risk">Inherent Risk</option>
+                                <option value="Buffer Overflow">Buffer Overflow</option>
+                            </select> 
+                            principles and isolated affected subnets using 
+                            <select id="gap-7" class="gap-input bg-slate-900 border border-slate-700 text-emerald-400 rounded px-2 py-1 text-xs focus:border-cyan-500">
+                                <option value="">-- Choose Term --</option>
+                                <option value="Microsegmentation">Microsegmentation</option>
+                                <option value="Risk Appetite">Risk Appetite</option>
+                                <option value="Management Review">Management Review</option>
+                            </select>. 
+                            The team successfully reduced the 
+                            <select id="gap-8" class="gap-input bg-slate-900 border border-slate-700 text-emerald-400 rounded px-2 py-1 text-xs focus:border-cyan-500">
+                                <option value="">-- Choose Term --</option>
+                                <option value="Mean Time to Respond (MTTR)">Mean Time to Respond (MTTR)</option>
+                                <option value="Asset Register">Asset Register</option>
+                                <option value="Public Key Infrastructure (PKI)">Public Key Infrastructure (PKI)</option>
+                            </select> 
+                            to under 18 minutes.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="gapFillResults" class="hidden p-4 rounded-xl bg-slate-950 border border-cyan-500/30 text-xs font-mono"></div>
+            </div>
+        </section>
+
+
+        <!-- TAB 5: CLAUSE MATCHER (SENTENCE HALVES) -->
+        <section id="tab-clauses" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-100">Clause & Sentence Halves Matcher</h2>
+                        <p class="text-xs text-slate-400 mt-1">Pair security governance clause stems with their correct executive conclusions.</p>
+                    </div>
+                </div>
+
+                <div id="clausePairsContainer" class="space-y-3">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button onclick="checkClauseMatches()" class="px-5 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-xs transition">
+                        Check Clause Pairings
+                    </button>
+                </div>
+                <div id="clauseFeedback" class="hidden p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono"></div>
+            </div>
+        </section>
+
+
+        <!-- TAB 6: CISO & ISO AUDITOR STRATEGIC QUIZZES -->
+        <section id="tab-quiz" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-100">CISO & Lead Auditor Strategic Quizzes</h2>
+                        <p class="text-xs text-slate-400 mt-1">Boardroom and ISO 27001 audit scenarios testing executive decisions and formal ESP vocabulary.</p>
+                    </div>
+                    <div id="quizScoreBadge" class="text-xs font-mono bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-cyan-400">
+                        Score: <span id="quizScore">0</span> / <span id="quizTotal">10</span>
+                    </div>
+                </div>
+
+                <div id="quizQuestionsContainer" class="space-y-6">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-950/80 py-6 px-4 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p>CYBER-ESP by <span class="text-cyan-400 font-semibold">Anna Laitadze</span> • Designed for Cyber Professionals & ISO Lead Auditors</p>
+            <p class="font-mono text-[11px] text-slate-600">Updated with CIA Triad & ISO 27001 / ISO 31000 Exam Terminology</p>
+        </div>
+    </footer>
+
+    <!-- GitHub Pages Deployment Info Modal -->
+    <div id="deployModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <h3 class="font-bold text-slate-100">GitHub Pages Live URL & Setup Guide</h3>
+                </div>
+                <button onclick="closeDeployModal()" class="text-slate-400 hover:text-slate-200 text-lg">✕</button>
+            </div>
+
+            <div class="space-y-3 text-xs text-slate-300">
+                <p><strong class="text-cyan-400">Target Repository:</strong> <code class="bg-slate-950 px-2 py-0.5 rounded text-cyan-300 font-mono">Anna-Laitadze-Cyber-ESP-</code></p>
+                <p><strong class="text-emerald-400">Live Website URL:</strong></p>
+                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl font-mono text-cyan-400 flex items-center justify-between">
+                    <span id="liveUrlText">https://analaitadze-source.github.io/Anna-Laitadze-Cyber-ESP-/</span>
+                    <button onclick="copyLiveUrl()" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 rounded">Copy</button>
+                </div>
+
+                <div class="space-y-1.5 pt-2">
+                    <h4 class="font-semibold text-slate-200 text-xs">Steps to publish changes:</h4>
+                    <ol class="list-decimal list-inside space-y-1 text-slate-400 font-mono text-[11px]">
+                        <li>Save this generated single file as <code class="text-cyan-400">index.html</code></li>
+                        <li>Push to the repository <code class="text-cyan-400">analaitadze-source/Anna-Laitadze-Cyber-ESP-</code></li>
+                        <li>In GitHub Repository Settings, go to <strong>Pages</strong></li>
+                        <li>Select <strong>Deploy from a branch</strong> → Choose <code class="text-cyan-400">main</code> or <code class="text-cyan-400">master</code> / root</li>
+                        <li>Save and visit your live site at the URL above.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="pt-2 text-right">
+                <button onclick="closeDeployModal()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC & LEXICON DATA ENGINE -->
+    <script>
+        /* ==========================================================================
+           1. COMPREHENSIVE LEXICON DATASET (84 Cybersecurity & ISO Exam Terms)
+           ========================================================================== */
+        const lexiconData = [
+            // CATEGORY 1: CIA TRIAD & ISO STANDARDS (25 Terms)
+            {
+                id: 1,
+                term: "Confidentiality",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˌkɒnfɪdɛnʃiˈælɪti/",
+                definition: "The core principle ensuring that information is accessible only to authorized individuals, entities, or processes, preventing unauthorized disclosure.",
+                verbCollocation: "Maintain / Preserve / Compromise confidentiality",
+                adjCollocation: "Strict confidentiality, Breach of confidentiality",
+                executiveContext: "During the Stage 2 ISO 27001 audit, the Lead Auditor verified that sensitive PII data was encrypted both at rest and in transit to maintain confidentiality.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`
+            },
+            {
+                id: 2,
+                term: "Integrity",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ɪnˈtɛɡrɪti/",
+                definition: "The property of safeguarding the accuracy, completeness, and authenticity of data and systems against unauthorized modification or tampering.",
+                verbCollocation: "Verify / Safeguard / Undermine integrity",
+                adjCollocation: "Data integrity, Cryptographic integrity check",
+                executiveContext: "We implemented SHA-256 cryptographic hashing across automated pipelines to verify the integrity of firmware updates prior to deployment.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+            },
+            {
+                id: 3,
+                term: "Availability",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/əˌveɪləˈbɪlɪti/",
+                definition: "Ensuring that systems, applications, and data remain operational and accessible to authorized users when required according to service level agreements.",
+                verbCollocation: "Ensure / Restore / Disrupt availability",
+                adjCollocation: "High availability, System availability requirement",
+                executiveContext: "The CISO approved redundant multi-region load balancers to ensure 99.99% availability during volumetric DDoS attacks.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`
+            },
+            {
+                id: 4,
+                term: "Non-Repudiation",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/nɒn-rɪˌpjuːdɪˈeɪʃən/",
+                definition: "The assurance that the sender of a message or author of a transaction cannot deny the authenticity of their signature or creation of the transmission.",
+                verbCollocation: "Guarantee / Establish / Enforce non-repudiation",
+                adjCollocation: "Cryptographic non-repudiation, Digital signature proof",
+                executiveContext: "Enforcing digital signatures tied to hardware security modules guarantees non-repudiation for all wire transfers above $1M.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>`
+            },
+            {
+                id: 5,
+                term: "Authenticity",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˌɔːθɛnˈtɪsɪti/",
+                definition: "The property of being genuine and able to be verified and trusted; confidence in the validity of a claimed identity.",
+                verbCollocation: "Validate / Authenticate / Confirm authenticity",
+                adjCollocation: "Identity authenticity, Message authenticity code (MAC)",
+                executiveContext: "X.509 mutual TLS certificate validation was implemented to confirm device authenticity before establishing telemetry sessions.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 012-2h2a2 2 0 012 2v1m-6 0h6"></path></svg>`
+            },
+            {
+                id: 6,
+                term: "Accountability",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/əˌkaʊntəˈbɪlɪti/",
+                definition: "The security goal that requires actions of an entity to be traced uniquely to that entity through immutable logging and auditing.",
+                verbCollocation: "Establish / Trace / Enforce accountability",
+                adjCollocation: "Individual accountability, Audit trail accountability",
+                executiveContext: "By removing shared administrative accounts, the security operations team enforced strict accountability across infrastructure.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>`
+            },
+            {
+                id: 7,
+                term: "Information Security Management System (ISMS)",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˌɪnfərˈmeɪʃən sɪˈkjʊərɪti ˈmænɪdʒmənt ˈsɪstəm/",
+                definition: "A systematic framework consisting of policies, procedures, risk assessments, and technical controls used to manage sensitive company data securely under ISO/IEC 27001.",
+                verbCollocation: "Establish / Implement / Continually improve ISMS",
+                adjCollocation: "ISO 27001 ISMS, Certified ISMS framework",
+                executiveContext: "Top management demonstrated active commitment by allocating budget to implement and continually improve the enterprise ISMS.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>`
+            },
+            {
+                id: 8,
+                term: "Statement of Applicability (SoA)",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˈsteɪtmənt ɒv əˌplɪkəˈbɪlɪti/",
+                definition: "A mandatory ISO 27001 document declaring which Annex A controls have been selected or excluded, along with detailed justifications.",
+                verbCollocation: "Formulate / Review / Justify exclusions in SoA",
+                adjCollocation: "Mandatory SoA document, Approved SoA matrix",
+                executiveContext: "The ISO Lead Auditor scrutinized the Statement of Applicability to verify that all excluded physical controls were backed by risk assessments.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`
+            },
+            {
+                id: 9,
+                term: "Risk Assessment",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/rɪsk əˈsɛsmənt/",
+                definition: "The overall process of risk identification, risk analysis, and risk evaluation in alignment with ISO 31000 principles.",
+                verbCollocation: "Conduct / Execute / Update risk assessment",
+                adjCollocation: "Formal risk assessment, Periodic ISO risk assessment",
+                executiveContext: "Before launching the cloud migration project, the Risk Officer conducted a comprehensive risk assessment of vendor dependencies.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`
+            },
+            {
+                id: 10,
+                term: "Risk Treatment",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/rɪsk ˈtriːtmənt/",
+                definition: "The process to modify risk by choosing options such as risk mitigation, risk avoidance, risk transfer, or risk acceptance.",
+                verbCollocation: "Formulate / Execute / Monitor risk treatment plan",
+                adjCollocation: "Approved risk treatment, Risk treatment strategy",
+                executiveContext: "Management selected risk transfer as their primary risk treatment option by purchasing a $10M cyber insurance policy.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>`
+            },
+            {
+                id: 11,
+                term: "Inherent Risk",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ɪnˈhɪərənt rɪsk/",
+                definition: "The exposure arising from a specific threat or vulnerability in the absence of any deliberate security controls or countermeasures.",
+                verbCollocation: "Evaluate / Quantify / Calculate inherent risk",
+                adjCollocation: "High inherent risk, Raw inherent risk score",
+                executiveContext: "Exposing legacy database servers directly to the internet presents extreme inherent risk due to unpatched vulnerabilities.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>`
+            },
+            {
+                id: 12,
+                term: "Residual Risk",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/rɪˈzɪdjʊəl rɪsk/",
+                definition: "The risk remaining after security controls, safeguards, and risk treatments have been applied.",
+                verbCollocation: "Accept / Measure / Reduce residual risk",
+                adjCollocation: "Acceptable residual risk, Residual risk threshold",
+                executiveContext: "After deploying multi-factor authentication, top management formally signed off to accept the remaining residual risk.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>`
+            },
+            {
+                id: 13,
+                term: "Risk Appetite",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/rɪsk ˈæpɪtaɪt/",
+                definition: "The amount and type of risk that an organization is willing to pursue or retain to achieve its strategic objectives.",
+                verbCollocation: "Define / Exceed / Align with risk appetite",
+                adjCollocation: "Corporate risk appetite, Board-approved risk appetite",
+                executiveContext: "Deploying untested software directly into production exceeded the company's board-approved risk appetite.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>`
+            },
+            {
+                id: 14,
+                term: "Non-Conformity",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/nɒn-kənˈfɔːmɪti/",
+                definition: "The non-fulfillment of a specified requirement in ISO 27001 standards or organizational security policies; classified as Major or Minor.",
+                verbCollocation: "Identify / Issue / Rectify non-conformity",
+                adjCollocation: "Major non-conformity, Minor non-conformity finding",
+                executiveContext: "The absence of recorded management reviews resulted in a Major Non-Conformity during the Stage 2 ISO audit.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+            },
+            {
+                id: 15,
+                term: "Corrective Action",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/kəˈrɛktɪv ˈækʃən/",
+                definition: "Action taken to eliminate the cause of a detected non-conformity or security incident to prevent recurrence.",
+                verbCollocation: "Execute / Implement / Verify corrective action",
+                adjCollocation: "Prompt corrective action, Corrective action plan (CAP)",
+                executiveContext: "The CISO submitted a Corrective Action Plan addressing the audit findings within two weeks of the certification audit.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>`
+            },
+            {
+                id: 16,
+                term: "Internal Audit",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ɪnˈtɜːnl ˈɔːdɪt/",
+                definition: "An independent, objective assessment conducted at planned intervals to determine whether the ISMS conforms to planned arrangements and ISO 27001 requirements.",
+                verbCollocation: "Conduct / Schedule / Perform internal audit",
+                adjCollocation: "Annual internal audit, Independent internal audit team",
+                executiveContext: "Clause 9.2 mandates that organizations conduct internal audits prior to inviting external certification bodies.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>`
+            },
+            {
+                id: 17,
+                term: "Certification Audit",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˌsɜːtɪfɪˈkeɪʃən ˈɔːdɪt/",
+                definition: "A formal external assessment by an accredited Registrar/Certification Body, typically divided into Stage 1 (Documentation) and Stage 2 (Implementation).",
+                verbCollocation: "Undergo / Pass / Prepare for certification audit",
+                adjCollocation: "Stage 1 audit, Stage 2 ISO certification audit",
+                executiveContext: "After resolving all Stage 1 documentation findings, the organization successfully passed its Stage 2 certification audit.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>`
+            },
+            {
+                id: 18,
+                term: "Management Review",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˈmænɪdʒmənt rɪˈvjuː/",
+                definition: "Top management’s formal review of the organization’s ISMS performance, audit results, risk treatment progress, and continual improvement opportunities (ISO 27001 Clause 9.3).",
+                verbCollocation: "Convene / Document / Record management review",
+                adjCollocation: "Annual management review, ISO 27001 Clause 9.3 review",
+                executiveContext: "Minutes from the annual management review served as key evidence demonstrating executive oversight of the cybersecurity budget.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`
+            },
+            {
+                id: 19,
+                term: "Scope of ISMS",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/skəʊp ɒv ˌaɪ-ɛs-ɛm-ɛs/",
+                definition: "The explicit boundaries and applicability of the Information Security Management System, defining business units, locations, assets, and technology included.",
+                verbCollocation: "Define / Delineate / Expand scope of ISMS",
+                adjCollocation: "Documented ISMS scope, Audit scope boundary",
+                executiveContext: "The board decided to expand the scope of the ISMS to cover European data center operations prior to the surveillance audit.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>`
+            },
+            {
+                id: 20,
+                term: "Context of the Organization",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˈkɒntɛkst ɒv ðə ˌɔːɡənaɪˈzeɪʃən/",
+                definition: "ISO 27001 Clause 4 requirement to identify internal and external issues, legal obligations, and interested parties' requirements relevant to information security.",
+                verbCollocation: "Analyze / Determine / Reassess context of organization",
+                adjCollocation: "Organizational context, Internal & external issues",
+                executiveContext: "Analyzing the context of the organization revealed new regulatory requirements under GDPR that impacted our data retention policies.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>`
+            },
+            {
+                id: 21,
+                term: "Annex A Controls",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˈænɛks eɪ kənˈtrəʊlz/",
+                definition: "The normative reference control sets in ISO/IEC 27001:2022 categorized into Organizational, People, Physical, and Technological controls.",
+                verbCollocation: "Select / Implement / Map Annex A controls",
+                adjCollocation: "ISO 27001:2022 Annex A, Mandatory control catalog",
+                executiveContext: "The updated ISO 27001:2022 revision consolidated Annex A controls into 93 controls across four streamlined categories.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>`
+            },
+            {
+                id: 22,
+                term: "Continual Improvement (PDCA)",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/kənˈtɪnjʊəl ɪmˈpruːvmənt/",
+                definition: "The ongoing effort to enhance the effectiveness of the ISMS using Plan-Do-Check-Act (PDCA) iterative cycles under Clause 10.",
+                verbCollocation: "Drive / Demonstrate / Foster continual improvement",
+                adjCollocation: "Iterative PDCA cycle, Continual improvement objective",
+                executiveContext: "Auditors noted that continuous vulnerability remediation metrics demonstrated real commitment to continual improvement.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>`
+            },
+            {
+                id: 23,
+                term: "Top Management Commitment",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/tɒp ˈmænɪdʒmənt kəˈmɪtmənt/",
+                definition: "ISO 27001 Clause 5 mandate requiring executive leaders to ensure security policy alignment with business strategy and allocate resources.",
+                verbCollocation: "Demonstrate / Mandate / Secure top management commitment",
+                adjCollocation: "Executive leadership commitment, Executive sponsorship",
+                executiveContext: "Without explicit top management commitment, an enterprise ISMS risks failing both external audits and operational implementation.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>`
+            },
+            {
+                id: 24,
+                term: "Asset Register",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/ˈæsɛt ˈrɛdʒɪstə/",
+                definition: "An inventory detailing all information assets, hardware, software, and data, identifying ownership and security classification.",
+                verbCollocation: "Maintain / Update / Reconcile asset register",
+                adjCollocation: "Centralized asset register, Hardware & software inventory",
+                executiveContext: "ISO 27001 Annex A.5.9 requires maintaining an accurate asset register to ensure clear asset ownership across cloud environments.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>`
+            },
+            {
+                id: 25,
+                term: "Acceptable Use Policy (AUP)",
+                category: "CIA Triad & ISO Standards",
+                ipa: "/əkˈsɛptəbl juːs ˈpɒlɪsi/",
+                definition: "A formal document stipulating rules and practices for employees regarding permissible access to corporate IT assets, networks, and data.",
+                verbCollocation: "Enforce / Violate / Acknowledge Acceptable Use Policy",
+                adjCollocation: "Mandatory AUP, Enterprise Acceptable Use Policy",
+                executiveContext: "All new hires must review and sign the Acceptable Use Policy during onboarding before network credentials are issued.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>`
+            },
+
+            // CATEGORY 2: THREATS & ATTACKS (18 Terms)
+            {
+                id: 26,
+                term: "Phishing",
+                category: "Threats & Attacks",
+                ipa: "/ˈfɪʃɪŋ/",
+                definition: "A social engineering vector that utilizes spoofed emails or communications to trick victims into revealing sensitive credentials or executing malicious payloads.",
+                verbCollocation: "Launch / Intercept / Fall victim to phishing",
+                adjCollocation: "Credential phishing, Mass email phishing campaign",
+                executiveContext: "Continuous employee awareness training significantly reduced the click rate on simulated credential phishing emails.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`
+            },
+            {
+                id: 27,
+                term: "Spear Phishing",
+                category: "Threats & Attacks",
+                ipa: "/spɪər ˈfɪʃɪŋ/",
+                definition: "A highly targeted social engineering attack customized with specific OSINT intelligence to deceive high-value individuals or executives.",
+                verbCollocation: "Target / Thwart / Detect spear phishing",
+                adjCollocation: "Targeted spear phishing attack, Executive spear phishing",
+                executiveContext: "The CFO received a spear phishing email posing as an external auditor requesting emergency wire transfers.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>`
+            },
+            {
+                id: 28,
+                term: "Ransomware Exfiltration",
+                category: "Threats & Attacks",
+                ipa: "/ˈrænsəmwɛər ˌɛksfɪlˈtreɪʃən/",
+                definition: "A double-extortion attack technique where threat actors steal confidential data prior to encrypting systems, threatening public leakage if ransom is unpaid.",
+                verbCollocation: "Exfiltrate / Prevent / Detect ransomware exfiltration",
+                adjCollocation: "Double extortion ransomware, Mass data exfiltration",
+                executiveContext: "Egress firewall controls and DLP monitoring blocked data exfiltration attempts before the ransomware execution phase.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`
+            },
+            {
+                id: 29,
+                term: "Zero-Day Exploit",
+                category: "Threats & Attacks",
+                ipa: "/ˈzɪərəʊ-deɪ ˈɛksplɔɪt/",
+                definition: "A cyber attack targeting a previously unknown software vulnerability for which no vendor patch or signature currently exists.",
+                verbCollocation: "Discover / Mitigate / Weaponize zero-day exploit",
+                adjCollocation: "Unpatched zero-day vulnerability, Zero-day attack vector",
+                executiveContext: "Virtual patching via our Web Application Firewall protected critical web applications against the zero-day exploit.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+            },
+            {
+                id: 30,
+                term: "Man-in-the-Middle (MitM)",
+                category: "Threats & Attacks",
+                ipa: "/mæn ɪn ðə ˈmɪdl/",
+                definition: "An attack where the adversary secretly intercepts and potentially alters communication between two trusting parties without detection.",
+                verbCollocation: "Intercept / Neutralize / Intercept via MitM",
+                adjCollocation: "MitM interception, Active MitM session hijacking",
+                executiveContext: "Enforcing Strict Transport Security (HSTS) prevents active Man-in-the-Middle TLS downgrade attacks across client portals.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>`
+            },
+            {
+                id: 31,
+                term: "SQL Injection (SQLi)",
+                category: "Threats & Attacks",
+                ipa: "/ˌɛs-kjuː-ˈɛl ɪnˈdʒɛkʃən/",
+                definition: "An injection attack that inserts malicious SQL statements into entry fields for execution against backend database servers.",
+                verbCollocation: "Inject / Prevent / Remediate SQL injection",
+                adjCollocation: "Blind SQLi, Parametrized SQL query protection",
+                executiveContext: "Transitioning to parameterized SQL queries across backend APIs eliminated application exposure to SQL injection.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>`
+            },
+            {
+                id: 32,
+                term: "Supply Chain Backdoor",
+                category: "Threats & Attacks",
+                ipa: "/səˈplaɪ tʃeɪn ˈbækˌdɔː/",
+                definition: "Compromising an upstream third-party software vendor or library to inject stealth access mechanisms into downstream enterprise environments.",
+                verbCollocation: "Implant / Uncover / Mitigate supply chain backdoor",
+                adjCollocation: "Third-party vendor backdoor, Upstream supply chain breach",
+                executiveContext: "Mandating Software Bill of Materials (SBOM) verification allows our SecOps team to detect supply chain backdoors instantly.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`
+            },
+            {
+                id: 33,
+                term: "Credential Stuffing",
+                category: "Threats & Attacks",
+                ipa: "/krɪˈdɛnʃəl ˈstʌfɪŋ/",
+                definition: "Automated injection of stolen username/password pairs across multiple online portals to gain unauthorized account access.",
+                verbCollocation: "Execute / Defend against credential stuffing",
+                adjCollocation: "Automated credential stuffing, Leaked password database",
+                executiveContext: "Deploying rate-limiting on login endpoints combined with CAPTCHA successfully stopped automated credential stuffing attacks.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 0121 9z"></path></svg>`
+            },
+            {
+                id: 34,
+                term: "Advanced Persistent Threat (APT)",
+                category: "Threats & Attacks",
+                ipa: "/ədˈvɑːnst pəˈsɪstənt θrɛt/",
+                definition: "A stealthy, continuous threat actor group—often state-sponsored—that gains unauthorized access to a network and remains undetected for long periods.",
+                verbCollocation: "Attribute / Disrupt / Detect APT activity",
+                adjCollocation: "State-sponsored APT group, Persistent foothold",
+                executiveContext: "Threat hunting operations identified an active APT actor utilizing living-off-the-land techniques within the staging subnet.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>`
+            },
+            {
+                id: 35,
+                term: "DDoS Amplification",
+                category: "Threats & Attacks",
+                ipa: "/ˌdiː-diː-əʊ-ˈɛs ˌæmplɪfɪˈkeɪʃən/",
+                definition: "An asymmetric distributed denial-of-service attack leveraging open UDP services (like NTP or DNS) to overwhelm targets with amplified traffic volumes.",
+                verbCollocation: "Mitigate / Launch / Absorb DDoS amplification",
+                adjCollocation: "Volumetric DDoS amplification, NTP/DNS reflection attack",
+                executiveContext: "Our cloud scrubbing center automatically absorbed a 400 Gbps DNS amplification attack without impacting service latency.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`
+            },
+            {
+                id: 36,
+                term: "Buffer Overflow",
+                category: "Threats & Attacks",
+                ipa: "/ˈbʌfər ˌəʊvəˈfləʊ/",
+                definition: "An anomaly where a program writes more data to a buffer than allocated, overwriting memory space and causing arbitrary code execution.",
+                verbCollocation: "Exploit / Prevent / Patch buffer overflow",
+                adjCollocation: "Stack-based buffer overflow, Memory corruption vulnerability",
+                executiveContext: "Migrating legacy C++ microservices to Rust protected our core routing engine against memory buffer overflow vulnerabilities.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>`
+            },
+            {
+                id: 37,
+                term: "Malvertising",
+                category: "Threats & Attacks",
+                ipa: "/ˌmælˈvɜːtaɪzɪŋ/",
+                definition: "Injecting malicious code or redirects into legitimate online advertising networks to compromise users' web browsers.",
+                verbCollocation: "Distribute / Block / Encounter malvertising",
+                adjCollocation: "Malicious ad network, Malvertising drive-by vector",
+                executiveContext: "DNS filtering rules blocked corporate endpoints from connecting to known ad networks distributing malvertising payloads.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 0120.945 13H11V3.055z"></path></svg>`
+            },
+            {
+                id: 38,
+                term: "Drive-by Download",
+                category: "Threats & Attacks",
+                ipa: "/draɪv-baɪ ˈdaʊnləʊd/",
+                definition: "The unintentional download of malicious software onto a user's computer without their knowledge or explicit action upon visiting a compromised site.",
+                verbCollocation: "Trigger / Block / Suffer drive-by download",
+                adjCollocation: "Unintended drive-by download, Browser exploit kit",
+                executiveContext: "Enforcing strict browser sandboxing prevented drive-by download exploits from compromising local OS file systems.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>`
+            },
+            {
+                id: 39,
+                term: "Social Engineering",
+                category: "Threats & Attacks",
+                ipa: "/ˈsəʊʃəl ˌɛndʒɪˈnɪərɪŋ/",
+                definition: "Psychological manipulation techniques used to trick individuals into divulging confidential information or performing actions that compromise security.",
+                verbCollocation: "Conduct / Defend against social engineering",
+                adjCollocation: "Human element vulnerability, Social engineering tactic",
+                executiveContext: "Security awareness campaigns remain our most effective safeguard against human-centric social engineering vectors.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`
+            },
+            {
+                id: 40,
+                term: "Cross-Site Scripting (XSS)",
+                category: "Threats & Attacks",
+                ipa: "/krɒs-saɪt ˈskrɪptɪŋ/",
+                definition: "A vulnerability where malicious client-side scripts are injected into trusted websites, executing within the victim's session context.",
+                verbCollocation: "Inject / Neutralize / Sanitize XSS",
+                adjCollocation: "Stored XSS, Reflected XSS, Content Security Policy (CSP)",
+                executiveContext: "Implementing strict Content Security Policy headers mitigated stored XSS risks on the user portal.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>`
+            },
+            {
+                id: 41,
+                term: "Business Email Compromise (BEC)",
+                category: "Threats & Attacks",
+                ipa: "/ˈbɪznɪs ˈiːmeɪl kəmˈprɒmaɪz/",
+                definition: "A targeted scam where attackers impersonate company executives or vendors via compromised email accounts to authorize fraudulent wire transfers.",
+                verbCollocation: "Execute / Intercept / Prevent BEC scam",
+                adjCollocation: "CEO fraud BEC, Invoice spoofing attack",
+                executiveContext: "Multi-person approval workflows for wire transfers successfully mitigated Business Email Compromise financial risks.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`
+            },
+            {
+                id: 42,
+                term: "Password Spraying",
+                category: "Threats & Attacks",
+                ipa: "/ˈpɑːswɜːd ˈspreɪɪŋ/",
+                definition: "An attack that attempts a few commonly used passwords across a vast list of usernames to avoid account lockout thresholds.",
+                verbCollocation: "Detect / Block / Execute password spraying",
+                adjCollocation: "Low-and-slow password spraying, Lockout policy bypass",
+                executiveContext: "Password spraying attempts were automatically detected by SIEM anomaly detection tracking failed single logins across multiple accounts.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`
+            },
+            {
+                id: 43,
+                term: "Insider Threat",
+                category: "Threats & Attacks",
+                ipa: "/ɪnˈsaɪdə θrɛt/",
+                definition: "The risk that a current or former employee, contractor, or partner will misuse authorized access to negatively impact organization assets.",
+                verbCollocation: "Identify / Mitigate / Detect insider threat",
+                adjCollocation: "Malicious insider threat, Accidental insider risk",
+                executiveContext: "User and Entity Behavior Analytics (UEBA) was deployed to identify anomalous data access indicative of malicious insider threats.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>`
+            },
+
+            // CATEGORY 3: PERIMETER & DEFENSE (14 Terms)
+            {
+                id: 44,
+                term: "Zero Trust Architecture (ZTA)",
+                category: "Perimeter & Defense",
+                ipa: "/ˈzɪərəʊ trʌst ˈɑːkɪtɛktʃə/",
+                definition: "A cybersecurity paradigm based on the principle 'never trust, always verify', requiring continuous identity and device validation.",
+                verbCollocation: "Adopt / Implement / Enforce Zero Trust Architecture",
+                adjCollocation: "NIST ZTA framework, Zero Trust network access (ZTNA)",
+                executiveContext: "Adopting Zero Trust Architecture ensured that internal network connections undergo explicit authentication and context evaluation.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>`
+            },
+            {
+                id: 45,
+                term: "Least Privilege",
+                category: "Perimeter & Defense",
+                ipa: "/liːst ˈprɪvɪlɪdʒ/",
+                definition: "The security rule that users, processes, and systems should be granted only the minimum permissions required to perform their explicit functions.",
+                verbCollocation: "Enforce / Apply / Restrict via least privilege",
+                adjCollocation: "Principle of least privilege (PoLP), Least privilege access policy",
+                executiveContext: "Auditors verified that database administrators only held permissions strictly required for maintenance under least privilege rules.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`
+            },
+            {
+                id: 46,
+                term: "Defense in Depth",
+                category: "Perimeter & Defense",
+                ipa: "/dɪˈfɛns ɪn dɛpθ/",
+                definition: "A layered defense strategy employing multiple independent technical, administrative, and physical security controls.",
+                verbCollocation: "Establish / Strengthen / Implement Defense in Depth",
+                adjCollocation: "Layered Defense in Depth, Multi-tiered security posture",
+                executiveContext: "Defense in Depth ensured that even if a firewall rule was misconfigured, host-based EDR blocked malicious execution.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>`
+            },
+            {
+                id: 47,
+                term: "Secure Access Service Edge (SASE)",
+                category: "Perimeter & Defense",
+                ipa: "/seɪs/",
+                definition: "An architecture combining WAN capabilities with cloud-native security functions (like CASB, ZTNA, and FWaaS) into a unified service.",
+                verbCollocation: "Deploy / Integrate / Migrate to SASE",
+                adjCollocation: "Cloud-native SASE solution, Unified SASE framework",
+                executiveContext: "Migrating remote workers to a SASE platform eliminated reliance on legacy VPN concentrators.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h12a5 5 0 001-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>`
+            },
+            {
+                id: 48,
+                term: "Microsegmentation",
+                category: "Perimeter & Defense",
+                ipa: "/ˌmaɪkrəʊˌsɛɡmɛnˈteɪʃən/",
+                definition: "A network security technique that isolates workloads granularly within data centers or cloud environments to restrict lateral movement.",
+                verbCollocation: "Enforce / Configure / Implement microsegmentation",
+                adjCollocation: "Granular microsegmentation, Workload-level isolation",
+                executiveContext: "Microsegmentation prevented lateral movement when a staging server was compromised during a red team exercise.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>`
+            },
+            {
+                id: 49,
+                term: "Web Application Firewall (WAF)",
+                category: "Perimeter & Defense",
+                ipa: "/wæf/",
+                definition: "A layer-7 security appliance or service that filters, inspects, and blocks HTTP traffic to and from web applications.",
+                verbCollocation: "Deploy / Tune rules on / Inspect via WAF",
+                adjCollocation: "Cloud WAF, Layer 7 Web Application Firewall",
+                executiveContext: "Tuning WAF inspection rules blocked SQL injection probes while preventing false positives on legitimate user queries.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>`
+            },
+            {
+                id: 50,
+                term: "Honeypot",
+                category: "Perimeter & Defense",
+                ipa: "/ˈhʌnɪpɒt/",
+                definition: "A decoy system deployed in a network to lure threat actors, gather cyber threat intelligence, and detect early intrusion activity.",
+                verbCollocation: "Deploy / Monitor / Capture telemetry via honeypot",
+                adjCollocation: "Decoy honeypot, High-interaction honeypot network",
+                executiveContext: "Alerts triggered by our internal honeypot provided early warning of an active insider credential abuse attempt.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>`
+            },
+            {
+                id: 51,
+                term: "Air-Gapped Environment",
+                category: "Perimeter & Defense",
+                ipa: "/ˈeə-ɡæpt ɪnˈvaɪərənmənt/",
+                definition: "A physical isolation control where a system or network has no network interfaces connected to the internet or untrusted networks.",
+                verbCollocation: "Isolate / Maintain / Store in air-gapped environment",
+                adjCollocation: "Air-gapped backup server, Physical isolation control",
+                executiveContext: "Immutability and air-gapped backup environments ensured complete recovery capability during the ransomware trial.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m-12.728 0a9 9 0 010-12.728m12.728 0L5.636 18.364"></path></svg>`
+            },
+            {
+                id: 52,
+                term: "Endpoint Detection and Response (EDR)",
+                category: "Perimeter & Defense",
+                ipa: "/ˈɛndpɔɪnt dɪˈtɛkʃən ænd rɪˈspɒns/",
+                definition: "A security solution that continuously monitors end-user devices to detect, investigate, and automatically respond to advanced threats.",
+                verbCollocation: "Deploy / Isolate host via / Monitor EDR",
+                adjCollocation: "Host-based EDR agent, Automated EDR isolation",
+                executiveContext: "EDR agents automatically quarantined compromised host devices upon detecting unapproved PowerShell process injections.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`
+            },
+            {
+                id: 53,
+                term: "Data Loss Prevention (DLP)",
+                category: "Perimeter & Defense",
+                ipa: "/ˈdeɪtə lɒs prɪˈvɛnʃən/",
+                definition: "Tools and strategies designed to detect and prevent unauthorized transmission or exfiltration of sensitive organizational data.",
+                verbCollocation: "Enforce / Configure / Trigger DLP rules",
+                adjCollocation: "Endpoint DLP, Cloud DLP scanning policy",
+                executiveContext: "DLP policy rules blocked an outgoing email containing unencrypted credit card numbers to an external domain.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`
+            },
+            {
+                id: 54,
+                term: "Security Information and Event Management (SIEM)",
+                category: "Perimeter & Defense",
+                ipa: "/sɪm/",
+                definition: "A software solution that aggregates log data from enterprise security infrastructure to perform real-time correlation and incident alerting.",
+                verbCollocation: "Ingest into / Correlate in / Alert via SIEM",
+                adjCollocation: "Centralized SIEM platform, SIEM correlation rule",
+                executiveContext: "Correlating domain controller logs within our SIEM enabled analysts to spot multi-account privilege escalation in real time.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>`
+            },
+
+            // CATEGORY 4: CRYPTOGRAPHY & IAM (14 Terms)
+            {
+                id: 55,
+                term: "Public Key Infrastructure (PKI)",
+                category: "Cryptography & IAM",
+                ipa: "/ˈpʌblɪk kiː ˈɪnfrəˌstrʌktʃə/",
+                definition: "A comprehensive ecosystem of roles, policies, hardware, and software required to create, manage, distribute, use, store, and revoke digital certificates.",
+                verbCollocation: "Deploy / Revoke certificates in / Manage PKI",
+                adjCollocation: "Enterprise PKI, Certificate Authority (CA) root",
+                executiveContext: "Establishing an enterprise PKI allowed automated mutual authentication between cloud services and internal microservices.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 0121 9z"></path></svg>`
+            },
+            {
+                id: 56,
+                term: "Multi-Factor Authentication (MFA)",
+                category: "Cryptography & IAM",
+                ipa: "/ˈmʌltɪ-ˈfæktər ɔːˌθɛntɪˈkeɪʃən/",
+                definition: "An access control system requiring two or more independent credentials (something you know, have, or are) prior to granting access.",
+                verbCollocation: "Enforce / Mandate / Bypass MFA",
+                adjCollocation: "Phishing-resistant MFA, FIDO2 hardware token",
+                executiveContext: "Mandating phishing-resistant FIDO2 hardware tokens for MFA mitigated all remote credential theft risks.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457-.39-2.823-1.07-4"></path></svg>`
+            },
+            {
+                id: 57,
+                term: "Role-Based Access Control (RBAC)",
+                category: "Cryptography & IAM",
+                ipa: "/rəʊl-beɪst ˈæksɛs kənˈtrəʊl/",
+                definition: "An access restriction method that assigns permissions based on predefined organizational roles rather than individual user identities.",
+                verbCollocation: "Provision / Audit / Assign permissions via RBAC",
+                adjCollocation: "Granular RBAC policy, Dynamic role assignment",
+                executiveContext: "Auditors confirmed that RBAC permissions were dynamically de-provisioned whenever employees changed business units.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`
+            },
+            {
+                id: 58,
+                term: "Ephemeral Keys",
+                category: "Cryptography & IAM",
+                ipa: "/ɪˈfɛmərəl kiːz/",
+                definition: "Cryptographic keys generated dynamically for a single communications session and discarded immediately afterward, ensuring Perfect Forward Secrecy.",
+                verbCollocation: "Generate / Discard / Negotiate ephemeral keys",
+                adjCollocation: "Perfect Forward Secrecy (PFS), Ephemeral Diffie-Hellman",
+                executiveContext: "Utilizing Ephemeral Diffie-Hellman keys ensures that compromised private keys cannot decrypt past session traffic.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 0121 9z"></path></svg>`
+            },
+            {
+                id: 59,
+                term: "Hardware Security Module (HSM)",
+                category: "Cryptography & IAM",
+                ipa: "/ˈhɑːdwɛə sɪˈkjʊərɪti ˈmɒdjuːl/",
+                definition: "A specialized physical computing device that safeguards and manages digital keys, performs encryption and decryption functions securely.",
+                verbCollocation: "Provision / Store keys in / Certify HSM",
+                adjCollocation: "FIPS 140-2 Level 3 HSM, Tamper-resistant HSM",
+                executiveContext: "Root Certificate Authority private keys were generated and stored inside FIPS 140-2 Level 3 validated HSM devices.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>`
+            },
+            {
+                id: 60,
+                term: "Symmetric Encryption",
+                category: "Cryptography & IAM",
+                ipa: "/sɪˈmɛtrɪk ɪnˈkrɪpʃən/",
+                definition: "A cryptographic method where the exact same secret key is used for both encrypting and decrypting data (e.g., AES-256).",
+                verbCollocation: "Encrypt / Decrypt via symmetric encryption",
+                adjCollocation: "AES-256 symmetric cipher, Secret key distribution",
+                executiveContext: "AES-256 symmetric encryption was selected for database-at-rest protection due to its high performance speed.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`
+            },
+            {
+                id: 61,
+                term: "Asymmetric Encryption",
+                category: "Cryptography & IAM",
+                ipa: "/ˌeɪsɪˈmɛtrɪk ɪnˈkrɪpʃən/",
+                definition: "Cryptography using mathematically linked key pairs: a public key for encryption/verification and a private key for decryption/signing.",
+                verbCollocation: "Generate keypair / Encrypt via public key",
+                adjCollocation: "RSA / ECC asymmetric cryptography, Public key exchange",
+                executiveContext: "Asymmetric encryption algorithms like RSA-4096 facilitate secure key exchanges over untrusted network connections.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 0121 9z"></path></svg>`
+            },
+            {
+                id: 62,
+                term: "Digital Signature",
+                category: "Cryptography & IAM",
+                ipa: "/ˈdɪdʒɪtl ˈsɪɡnətʃə/",
+                definition: "A mathematical scheme for demonstrating the authenticity, non-repudiation, and integrity of digital messages or documents.",
+                verbCollocation: "Sign / Validate / Verify digital signature",
+                adjCollocation: "Cryptographic digital signature, RSA signature verification",
+                executiveContext: "All executive board approvals and policy updates require digital signatures tied to validated internal identities.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>`
+            },
+            {
+                id: 63,
+                term: "Hashing Function",
+                category: "Cryptography & IAM",
+                ipa: "/ˈhæʃɪŋ ˈfʌŋkʃən/",
+                definition: "A one-way mathematical algorithm that converts arbitrary input data into a fixed-size bit string digest (e.g., SHA-256).",
+                verbCollocation: "Compute hash / Hash password / Check collision",
+                adjCollocation: "One-way cryptographic hash, SHA-256 digest",
+                executiveContext: "User passwords are never stored in plaintext; they are hashed using Argon2id with unique cryptographic salts.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path></svg>`
+            },
+            {
+                id: 64,
+                term: "Identity and Access Management (IAM)",
+                category: "Cryptography & IAM",
+                ipa: "/aɪˈdɛntɪti ænd ˈæksɛs ˈmænɪdʒmənt/",
+                definition: "The framework of business processes, policies, and technologies that facilitates the management of digital user identities and access rights.",
+                verbCollocation: "Provision / Audit / Centralize IAM controls",
+                adjCollocation: "Enterprise IAM framework, Cloud IAM policy",
+                executiveContext: "Centralizing IAM governance ensured that privilege revocations were instantly replicated across all cloud tenants.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 012-2h2a2 2 0 012 2v1m-6 0h6"></path></svg>`
+            },
+
+            // CATEGORY 5: INCIDENT RESPONSE & DFIR (15 Terms)
+            {
+                id: 65,
+                term: "Digital Forensics & Incident Response (DFIR)",
+                category: "Incident Response & DFIR",
+                ipa: "/ˈdɪdʒɪtl fəˈrɛnsɪks ænd ˈɪnsɪdənt rɪˈspɒns/",
+                definition: "A specialized cybersecurity field focusing on the identification, investigation, containment, and remediation of cyber breaches and digital evidence.",
+                verbCollocation: "Mobilize / Perform / Execute DFIR playbook",
+                adjCollocation: "DFIR investigation team, Digital evidence preservation",
+                executiveContext: "When telemetry indicated active command-and-control communication, the CISO immediately mobilized the retainer DFIR team.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>`
+            },
+            {
+                id: 66,
+                term: "Mean Time to Detect (MTTD)",
+                category: "Incident Response & DFIR",
+                ipa: "/miːn taɪm tuː dɪˈtɛkt/",
+                definition: "The average time elapsed from when a security compromise occurs until security teams become aware of the incident.",
+                verbCollocation: "Reduce / Track / Benchmark MTTD",
+                adjCollocation: "Key performance indicator (KPI) MTTD, SOC detection metric",
+                executiveContext: "Automating SIEM correlation rules decreased our enterprise Mean Time to Detect from 48 hours to under 6 minutes.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+            },
+            {
+                id: 67,
+                term: "Mean Time to Respond (MTTR)",
+                category: "Incident Response & DFIR",
+                ipa: "/miːn taɪm tuː rɪˈspɒnd/",
+                definition: "The average time required to contain, neutralize, and mitigate a detected security threat or incident.",
+                verbCollocation: "Accelerate / Lower / Measure MTTR",
+                adjCollocation: "Incident response SLA MTTR, MTTR containment metric",
+                executiveContext: "Deploying SOAR automation playbooks allowed analysts to lower MTTR by automatically isolating infected hosts.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`
+            },
+            {
+                id: 68,
+                term: "Post-Mortem Remediation",
+                category: "Incident Response & DFIR",
+                ipa: "/pəʊst-ˈmɔːtəm rɪˌmiːdɪˈeɪʃən/",
+                definition: "The post-incident phase where root causes are thoroughly analyzed and long-term architectural fixes are implemented to prevent recurrence.",
+                verbCollocation: "Conduct / Document / Implement post-mortem remediation",
+                adjCollocation: "Blameless post-mortem review, Post-incident corrective actions",
+                executiveContext: "The CISO presented the post-mortem remediation report to the executive board detailing lessons learned and budget adjustments.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`
+            },
+            {
+                id: 69,
+                term: "Root Cause Analysis (RCA)",
+                category: "Incident Response & DFIR",
+                ipa: "/ruːt kɔːz əˈnælɪsɪs/",
+                definition: "A structured problem-solving method used to pinpoint the underlying fundamental security weakness that allowed an incident to occur.",
+                verbCollocation: "Perform / Complete / Publish Root Cause Analysis",
+                adjCollocation: "Comprehensive RCA, Technical root cause finding",
+                executiveContext: "The Root Cause Analysis revealed that an unpatched VPN appliance served as the initial entry vector for the breach.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>`
+            },
+            {
+                id: 70,
+                term: "Chain of Custody",
+                category: "Incident Response & DFIR",
+                ipa: "/tʃeɪn ɒv ˈkʌstədi/",
+                definition: "The chronological documentation showing the seizure, custody, control, transfer, analysis, and disposition of physical or electronic evidence.",
+                verbCollocation: "Maintain / Document / Preserve Chain of Custody",
+                adjCollocation: "Forensic Chain of Custody, Legally admissible evidence",
+                executiveContext: "To ensure court admissibility, forensic investigators strictly maintained the Chain of Custody for seized disk images.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>`
+            },
+            {
+                id: 71,
+                term: "Business Continuity Plan (BCP)",
+                category: "Incident Response & DFIR",
+                ipa: "/ˈbɪznɪs kənˈtɪnjʊəti plæn/",
+                definition: "A documented strategic system preventing and recovering from potential threats to company operations, ensuring continuous functioning.",
+                verbCollocation: "Activate / Test / Review Business Continuity Plan",
+                adjCollocation: "ISO 22301 compliant BCP, Disaster operational recovery",
+                executiveContext: "Activating our BCP during the regional data center outage allowed operational recovery within less than two hours.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`
+            },
+            {
+                id: 72,
+                term: "Disaster Recovery Plan (DRP)",
+                category: "Incident Response & DFIR",
+                ipa: "/dɪˈzɑːstə rɪˈkʌvəri plæn/",
+                definition: "A structured, technical subset of business continuity focused on restoring IT infrastructure, systems, and data following a disaster.",
+                verbCollocation: "Execute / Test / Validate Disaster Recovery Plan",
+                adjCollocation: "IT Disaster Recovery Plan, Recovery Point Objective (RPO)",
+                executiveContext: "Annual DRP simulation drills confirmed our ability to meet the mandatory 15-minute Recovery Point Objective (RPO).",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>`
+            },
+            {
+                id: 73,
+                term: "Software Bill of Materials (SBOM)",
+                category: "Incident Response & DFIR",
+                ipa: "/ˈsɒftwɛə bɪl ɒv məˈtɪərɪəlz/",
+                definition: "A nested inventory detailing all open-source and commercial software components, libraries, and dependencies included in an application.",
+                verbCollocation: "Publish / Audit / Generate SBOM",
+                adjCollocation: "Machine-readable SBOM, CycloneDX / SPDX standard",
+                executiveContext: "Mandating an SBOM for all third-party vendors enabled immediate identification of Log4j vulnerable components.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>`
+            },
+            {
+                id: 74,
+                term: "Static & Dynamic Testing (SAST/DAST)",
+                category: "Incident Response & DFIR",
+                ipa: "/ˈstætɪk ænd daɪˈnæmɪk ˈtɛstɪŋ/",
+                definition: "Application security analysis methods: SAST inspects source code statically, while DAST evaluates compiled applications in runtime execution.",
+                verbCollocation: "Integrate into CI/CD / Run SAST/DAST scan",
+                adjCollocation: "Automated SAST/DAST pipeline, Application security testing",
+                executiveContext: "Embedding SAST/DAST tools directly into our CI/CD pipelines prevented vulnerable code from reaching production servers.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>`
+            },
+            {
+                id: 75,
+                term: "Threat Hunting",
+                category: "Incident Response & DFIR",
+                ipa: "/θrɛt ˈhʌntɪŋ/",
+                definition: "The proactive, hypothesis-driven search through networks and endpoints to detect stealthy adversaries that bypassed security controls.",
+                verbCollocation: "Conduct / Execute / Lead proactive threat hunting",
+                adjCollocation: "Hypothesis-driven threat hunting, C2 beacon hunting",
+                executiveContext: "Proactive threat hunting uncovered a dormant web shell on an unmonitored test web server.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>`
+            },
+            {
+                id: 76,
+                term: "Vulnerability Assessment",
+                category: "Incident Response & DFIR",
+                ipa: "/ˌvʌlnərəˈbɪlɪti əˈsɛsmənt/",
+                definition: "A systematic review of security weaknesses in an information system, ranking discovered flaws by severity and risk level.",
+                verbCollocation: "Perform / Schedule / Remediate vulnerability assessment",
+                adjCollocation: "Automated vulnerability scan, CVSS score prioritization",
+                executiveContext: "Monthly vulnerability assessments ensure high-risk CVEs are patched within our 14-day SLA window.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>`
+            },
+            {
+                id: 77,
+                term: "Security Orchestration, Automation, and Response (SOAR)",
+                category: "Incident Response & DFIR",
+                ipa: "/sɔːr/",
+                definition: "A stack of compatible software programs that allows organizations to collect threat inputs and automate incident response playbooks.",
+                verbCollocation: "Deploy SOAR / Automate playbook / Trigger SOAR action",
+                adjCollocation: "SOAR workflow playbook, Automated triage response",
+                executiveContext: "SOAR playbooks reduced tier-1 analyst workload by automatically triaging phishing alerts and enriching IP reputations.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`
+            },
+            {
+                id: 78,
+                term: "Playbook Execution",
+                category: "Incident Response & DFIR",
+                ipa: "/ˈpleɪbʊk ˌɛksɪˈkjuːʃən/",
+                definition: "The automated or semi-automated execution of defined standard operating procedures during specific security incident scenarios.",
+                verbCollocation: "Trigger / Execute / Refine playbook execution",
+                adjCollocation: "Incident playbook execution, Incident response SOP",
+                executiveContext: "Upon confirming host infection, the SOAR platform initiated immediate playbook execution to isolate the host.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>`
+            },
+            {
+                id: 79,
+                term: "Tabletop Exercise",
+                category: "Incident Response & DFIR",
+                ipa: "/ˈteɪbltɒp ˈɛksəsaɪz/",
+                definition: "A discussion-based simulation drill where key stakeholders walk through hypothetical cyber incident scenarios to test response plans.",
+                verbCollocation: "Conduct / Facilitate / Participate in tabletop exercise",
+                adjCollocation: "Executive tabletop exercise, Annual ransomware drill",
+                executiveContext: "The CISO facilitated a tabletop exercise simulating a critical ransomware attack for board members.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`
+            },
+            {
+                id: 80,
+                term: "Threat Intelligence Feed",
+                category: "Incident Response & DFIR",
+                ipa: "/θrɛt ɪnˈtɛlɪdʒəns fiːd/",
+                definition: "A real-time data stream of cyber threat indicators (IOCs, IP blocklists, malicious hashes) ingested into security monitoring tools.",
+                verbCollocation: "Ingest / Subscribe to / Enrich via threat feed",
+                adjCollocation: "Real-time threat intelligence feed, STIX/TAXII feed",
+                executiveContext: "Ingesting commercial threat intelligence feeds enabled automated firewall blocking of emerging command-and-control servers.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`
+            },
+            {
+                id: 81,
+                term: "Indicator of Compromise (IOC)",
+                category: "Incident Response & DFIR",
+                ipa: "/ˈɪndɪkeɪtər ɒv ˈkɒmprəmaɪz/",
+                definition: "Forensic artifact observed on a network or operating system that indicates a high probability of malicious intrusion.",
+                verbCollocation: "Extract / Match / Share IOCs",
+                adjCollocation: "File hash IOC, IP/Domain IOC indicator",
+                executiveContext: "Analysts extracted malicious MD5 hashes as IOCs to scan all endpoints across enterprise branches.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>`
+            },
+            {
+                id: 82,
+                term: "Penetration Testing",
+                category: "Incident Response & DFIR",
+                ipa: "/ˌpɛnɪˈtreɪʃən ˈtɛstɪŋ/",
+                definition: "An authorized simulated cyber attack performed on a computer system to evaluate its technical security posture.",
+                verbCollocation: "Commission / Conduct / Remediate pen test",
+                adjCollocation: "Black-box penetration test, Annual red team exercise",
+                executiveContext: "Annual penetration testing is required under ISO 27001 Annex A.8.25 to validate application resilience.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`
+            },
+            {
+                id: 83,
+                term: "Compromise Assessment",
+                category: "Incident Response & DFIR",
+                ipa: "/ˈkɒmprəmaɪz əˈsɛsmənt/",
+                definition: "An objective analysis of an organization's infrastructure to determine whether attackers are currently present or have previously breached network boundaries.",
+                verbCollocation: "Perform / Commission / Analyze compromise assessment",
+                adjCollocation: "M&A compromise assessment, Forensic host inspection",
+                executiveContext: "Prior to completing the acquisition, the board ordered a thorough compromise assessment of the target firm's cloud tenant.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+            },
+            {
+                id: 84,
+                term: "Patch Management",
+                category: "Incident Response & DFIR",
+                ipa: "/pætʃ ˈmænɪdʒmənt/",
+                definition: "The systematic distribution and testing of software updates to remediate security vulnerabilities across enterprise infrastructure.",
+                verbCollocation: "Automate / Enforce / Audit patch management",
+                adjCollocation: "SLA-driven patch management, Zero-day emergency patching",
+                executiveContext: "Enforcing SLA-driven patch management ensured critical vulnerabilities were remediated within 72 hours.",
+                svgGraphic: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>`
+            }
+        ];
+
+        /* ==========================================================================
+           2. APP STATE MANAGEMENT & INITIALIZATION
+           ========================================================================== */
+        let state = {
+            activeTab: 'flashcards',
+            currentCategory: 'All',
+            searchQuery: '',
+            filteredDeck: [...lexiconData],
+            currentIndex: 0,
+            isFlipped: false,
+            masteredIds: new Set(JSON.parse(localStorage.getItem('cyber_esp_mastered') || '[]')),
+            matcherScore: 0,
+            matcherStreak: 0,
+            selectedMatcherThreat: null,
+            clauseMatches: {}
+        };
+
+        window.onload = function() {
+            updateMasteredCounts();
+            renderCard();
+            renderGlossaryTable();
+            initMatcherGame();
+            renderClauseMatcher();
+            renderQuizzes();
+            
+            // Keybindings for flashcard navigation
+            document.addEventListener('keydown', function(e) {
+                if (state.activeTab !== 'flashcards') return;
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+                
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipCard();
+                } else if (e.code === 'ArrowRight') {
+                    nextCard();
+                } else if (e.code === 'ArrowLeft') {
+                    prevCard();
+                }
+            });
+        };
+
+        function updateMasteredCounts() {
+            document.getElementById('masteredCount').textContent = state.masteredIds.size;
+            document.getElementById('totalTermsCount').textContent = lexiconData.length;
+            localStorage.setItem('cyber_esp_mastered', JSON.stringify(Array.from(state.masteredIds)));
+        }
+
+        /* Navigation Tab Switching */
+        function switchTab(tabId) {
+            state.activeTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/30');
+                el.classList.add('text-slate-400');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tabBtn-${tabId}`);
+            activeBtn.classList.add('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/30');
+            activeBtn.classList.remove('text-slate-400');
+        }
+
+        /* ==========================================================================
+           3. TAB 1: FLASHCARD DECK ENGINE (DEFINITION-FIRST ARCHITECTURE)
+           ========================================================================== */
+        function filterCategory(cat) {
+            state.currentCategory = cat;
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-cyan-500', 'text-slate-950');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+
+            const activeBtn = document.getElementById(`catBtn-${cat}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-cyan-500', 'text-slate-950');
+                activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+            }
+            applyDeckFilters();
+        }
+
+        function handleCardSearch() {
+            state.searchQuery = document.getElementById('cardSearchInput').value.toLowerCase().trim();
+            applyDeckFilters();
+        }
+
+        function applyDeckFilters() {
+            state.filteredDeck = lexiconData.filter(item => {
+                const matchCat = (state.currentCategory === 'All') || (item.category === state.currentCategory);
+                const matchSearch = !state.searchQuery || 
+                    item.term.toLowerCase().includes(state.searchQuery) ||
+                    item.definition.toLowerCase().includes(state.searchQuery) ||
+                    item.verbCollocation.toLowerCase().includes(state.searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            state.currentIndex = 0;
+            state.isFlipped = false;
+            renderCard();
+        }
+
+        function renderCard() {
+            const cardInner = document.getElementById('flashcardInner');
+            if (state.isFlipped) {
+                cardInner.classList.remove('rotate-y-180');
+                state.isFlipped = false;
+            }
+
+            if (state.filteredDeck.length === 0) {
+                document.getElementById('cardFrontDefinition').textContent = "No terminology found matching current filter query.";
+                document.getElementById('cardCategoryBadge').textContent = "Empty Result";
+                document.getElementById('cardCurrentIndex').textContent = "0";
+                document.getElementById('cardTotalCount').textContent = "0";
+                return;
+            }
+
+            const current = state.filteredDeck[state.currentIndex];
+            const isMastered = state.masteredIds.has(current.id);
+
+            // Front
+            document.getElementById('cardCategoryBadge').textContent = current.category;
+            document.getElementById('cardFrontGraphic').innerHTML = current.svgGraphic;
+            document.getElementById('cardFrontDefinition').textContent = current.definition;
+            document.getElementById('cardCurrentIndex').textContent = state.currentIndex + 1;
+            document.getElementById('cardTotalCount').textContent = state.filteredDeck.length;
+            
+            const masteredBadgeFront = document.getElementById('masteredBadgeFront');
+            if (isMastered) {
+                masteredBadgeFront.classList.remove('hidden');
+            } else {
+                masteredBadgeFront.classList.add('hidden');
+            }
+
+            // Back
+            document.getElementById('cardCategoryBadgeBack').textContent = current.category;
+            document.getElementById('cardBackTerm').textContent = current.term;
+            document.getElementById('cardBackIPA').textContent = current.ipa;
+            document.getElementById('cardBackVerbCol').textContent = current.verbCollocation;
+            document.getElementById('cardBackAdjCol').textContent = current.adjCollocation;
+            document.getElementById('cardBackContext').textContent = `"${current.executiveContext}"`;
+
+            const masteryBtnText = document.getElementById('masteryBtnText');
+            masteryBtnText.textContent = isMastered ? "Mastered ✓" : "Mark as Mastered";
+        }
+
+        function flipCard() {
+            if (state.filteredDeck.length === 0) return;
+            state.isFlipped = !state.isFlipped;
+            const cardInner = document.getElementById('flashcardInner');
+            if (state.isFlipped) {
+                cardInner.classList.add('rotate-y-180');
+            } else {
+                cardInner.classList.remove('rotate-y-180');
+            }
+        }
+
+        function nextCard() {
+            if (state.filteredDeck.length === 0) return;
+            state.currentIndex = (state.currentIndex + 1) % state.filteredDeck.length;
+            renderCard();
+        }
+
+        function prevCard() {
+            if (state.filteredDeck.length === 0) return;
+            state.currentIndex = (state.currentIndex - 1 + state.filteredDeck.length) % state.filteredDeck.length;
+            renderCard();
+        }
+
+        function shuffleDeck() {
+            for (let i = state.filteredDeck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [state.filteredDeck[i], state.filteredDeck[j]] = [state.filteredDeck[j], state.filteredDeck[i]];
+            }
+            state.currentIndex = 0;
+            renderCard();
+        }
+
+        function toggleMasteryCurrent() {
+            if (state.filteredDeck.length === 0) return;
+            const current = state.filteredDeck[state.currentIndex];
+            if (state.masteredIds.has(current.id)) {
+                state.masteredIds.delete(current.id);
+            } else {
+                state.masteredIds.add(current.id);
+            }
+            updateMasteredCounts();
+            renderCard();
+            renderGlossaryTable();
+        }
+
+        function speakTerm() {
+            if (state.filteredDeck.length === 0) return;
+            const term = state.filteredDeck[state.currentIndex].term;
+            speakText(term);
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        /* ==========================================================================
+           4. TAB 2: MASTER GLOSSARY MATRIX
+           ========================================================================== */
+        function renderGlossaryTable() {
+            const catFilter = document.getElementById('glossaryCategorySelect').value;
+            const searchQuery = document.getElementById('glossarySearchInput').value.toLowerCase().trim();
+            const tbody = document.getElementById('glossaryTableBody');
+
+            const filtered = lexiconData.filter(item => {
+                const matchCat = (catFilter === 'All') || (item.category === catFilter);
+                const matchSearch = !searchQuery ||
+                    item.term.toLowerCase().includes(searchQuery) ||
+                    item.definition.toLowerCase().includes(searchQuery) ||
+                    item.verbCollocation.toLowerCase().includes(searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            tbody.innerHTML = '';
+            filtered.forEach(item => {
+                const isMastered = state.masteredIds.has(item.id);
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-900/60 transition";
+                tr.innerHTML = `
+                    <td class="p-3.5 font-medium text-slate-100">
+                        <div class="font-bold text-cyan-400 text-sm">${item.term}</div>
+                        <div class="font-mono text-[11px] text-slate-400">${item.ipa}</div>
+                    </td>
+                    <td class="p-3.5">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-slate-900 text-slate-300 border border-slate-700">${item.category}</span>
+                    </td>
+                    <td class="p-3.5 text-slate-300 leading-relaxed max-w-xs">
+                        ${item.definition}
+                    </td>
+                    <td class="p-3.5 space-y-1 max-w-xs">
+                        <div class="text-[11px] text-cyan-300"><strong class="text-slate-400">Verb:</strong> ${item.verbCollocation}</div>
+                        <div class="text-[11px] text-emerald-300"><strong class="text-slate-400">Compound:</strong> ${item.adjCollocation}</div>
+                    </td>
+                    <td class="p-3.5 text-slate-300 italic text-[11px] max-w-xs">
+                        "${item.executiveContext}"
+                    </td>
+                    <td class="p-3.5 text-center">
+                        <button onclick="speakText('${item.term.replace(/'/g, "\\'")}')" class="p-2 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 rounded-lg transition" title="Listen Audio">
+                            🔊
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        /* ==========================================================================
+           5. TAB 3: THREAT & CONTROL MATCHER GAME
+           ========================================================================== */
+        const matcherPairs = [
+            { threat: "Unencrypted backup SSD decommissioned without authorization", control: "ISO 27001 Annex A.7.14 Secure Disposal of Media" },
+            { threat: "Credential stuffing attack bypassing single-factor auth", control: "Mandatory Multi-Factor Authentication (MFA) & Rate Limiting" },
+            { threat: "Zero-day vulnerability in web application backend API", control: "Web Application Firewall (WAF) & Virtual Patching" },
+            { threat: "Lack of justification for excluding physical controls in audit", control: "Statement of Applicability (SoA) ISO 27001 Clause 6.1.3" },
+            { threat: "Unauthorized wire transfer request spoofed from CEO email", control: "Multi-Person Signature Approval & DMARC/DKIM Enforcements" },
+            { threat: "Ransomware lateral movement across flat cloud subnet", control: "Microsegmentation & Zero Trust Architecture (ZTA)" }
+        ];
+
+        function initMatcherGame() {
+            state.matcherScore = 0;
+            state.matcherStreak = 0;
+            state.selectedMatcherThreat = null;
+            document.getElementById('matcherScore').textContent = 0;
+            document.getElementById('matcherStreak').textContent = 0;
+            document.getElementById('matcherFeedback').classList.add('hidden');
+
+            const threatsContainer = document.getElementById('matcherThreatsContainer');
+            const controlsContainer = document.getElementById('matcherControlsContainer');
+
+            threatsContainer.innerHTML = '';
+            controlsContainer.innerHTML = '';
+
+            // Shuffle lists independently
+            const shuffledThreats = [...matcherPairs].sort(() => 0.5 - Math.random());
+            const shuffledControls = [...matcherPairs].sort(() => 0.5 - Math.random());
+
+            shuffledThreats.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = "matcher-threat-item p-3 bg-slate-950 border border-slate-800 hover:border-cyan-500 rounded-xl text-xs font-mono text-slate-200 cursor-pointer transition flex items-center gap-2";
+                div.dataset.index = idx;
+                div.dataset.threatText = item.threat;
+                div.innerHTML = `<span class="text-rose-400 font-bold">●</span> <span>${item.threat}</span>`;
+                div.onclick = () => selectThreat(div, item);
+                threatsContainer.appendChild(div);
+            });
+
+            shuffledControls.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = "matcher-control-item p-3 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl text-xs font-mono text-slate-200 cursor-pointer transition flex items-center gap-2";
+                div.dataset.index = idx;
+                div.dataset.controlText = item.control;
+                div.innerHTML = `<span class="text-emerald-400 font-bold">■</span> <span>${item.control}</span>`;
+                div.onclick = () => selectControl(div, item);
+                controlsContainer.appendChild(div);
+            });
+        }
+
+        function selectThreat(element, item) {
+            document.querySelectorAll('.matcher-threat-item').forEach(el => el.classList.remove('border-cyan-500', 'bg-cyan-950/40'));
+            element.classList.add('border-cyan-500', 'bg-cyan-950/40');
+            state.selectedMatcherThreat = item;
+        }
+
+        function selectControl(element, item) {
+            if (!state.selectedMatcherThreat) {
+                showMatcherFeedback("Please select a vulnerability or threat from the left column first!", "amber");
+                return;
+            }
+
+            if (state.selectedMatcherThreat.control === item.control) {
+                // Correct match
+                state.matcherScore += 100;
+                state.matcherStreak += 1;
+                document.getElementById('matcherScore').textContent = state.matcherScore;
+                document.getElementById('matcherStreak').textContent = state.matcherStreak;
+
+                element.classList.add('opacity-40', 'pointer-events-none', 'bg-emerald-950');
+                const threatEl = Array.from(document.querySelectorAll('.matcher-threat-item')).find(el => el.dataset.threatText === state.selectedMatcherThreat.threat);
+                if (threatEl) threatEl.classList.add('opacity-40', 'pointer-events-none', 'bg-emerald-950');
+
+                showMatcherFeedback(`✓ Correct Match! +100 Points.`, "emerald");
+                state.selectedMatcherThreat = null;
+            } else {
+                state.matcherStreak = 0;
+                document.getElementById('matcherStreak').textContent = 0;
+                showMatcherFeedback(`✕ Incorrect match. Re-evaluate ISO annex control mappings!`, "rose");
+            }
+        }
+
+        function showMatcherFeedback(msg, color) {
+            const fb = document.getElementById('matcherFeedback');
+            fb.classList.remove('hidden', 'bg-emerald-950/80', 'text-emerald-400', 'border-emerald-500', 'bg-rose-950/80', 'text-rose-400', 'border-rose-500', 'bg-amber-950/80', 'text-amber-400', 'border-amber-500');
+            
+            if (color === 'emerald') {
+                fb.classList.add('bg-emerald-950/80', 'text-emerald-400', 'border', 'border-emerald-500');
+            } else if (color === 'rose') {
+                fb.classList.add('bg-rose-950/80', 'text-rose-400', 'border', 'border-rose-500');
+            } else {
+                fb.classList.add('bg-amber-950/80', 'text-amber-400', 'border', 'border-amber-500');
+            }
+            fb.textContent = msg;
+        }
+
+        /* ==========================================================================
+           6. TAB 4: SOC & ISO INCIDENT LOGS (GAP FILL VALIDATION)
+           ========================================================================== */
+        const gapKey = {
+            'gap-1': 'Information Security Management System (ISMS)',
+            'gap-2': 'Statement of Applicability (SoA)',
+            'gap-3': 'Non-Conformity',
+            'gap-4': 'Corrective Action',
+            'gap-5': 'Confidentiality',
+            'gap-6': 'Zero Trust Architecture (ZTA)',
+            'gap-7': 'Microsegmentation',
+            'gap-8': 'Mean Time to Respond (MTTR)'
+        };
+
+        function checkGapFillAnswers() {
+            let correct = 0;
+            let total = Object.keys(gapKey).length;
+
+            Object.keys(gapKey).forEach(id => {
+                const el = document.getElementById(id);
+                if (el.value === gapKey[id]) {
+                    correct++;
+                    el.classList.remove('border-rose-500', 'bg-rose-950');
+                    el.classList.add('border-emerald-500', 'bg-emerald-950/80');
+                } else {
+                    el.classList.remove('border-emerald-500', 'bg-emerald-950/80');
+                    el.classList.add('border-rose-500', 'bg-rose-950');
+                }
+            });
+
+            const resDiv = document.getElementById('gapFillResults');
+            resDiv.classList.remove('hidden');
+            resDiv.innerHTML = `<strong>Audit Validation Result:</strong> You scored <strong>${correct} / ${total}</strong> (${Math.round(correct/total * 100)}%). ${correct === total ? "Outstanding compliance expertise!" : "Review highlighted fields and re-check terminology."}`;
+        }
+
+        /* ==========================================================================
+           7. TAB 5: CLAUSE MATCHER (SENTENCE HALVES)
+           ========================================================================== */
+        const clauseData = [
+            { id: 1, stem: "According to ISO 27001 Clause 9.3, top management must review the ISMS at planned intervals to ensure...", completion: "...its continuing suitability, adequacy, and operational effectiveness." },
+            { id: 2, stem: "If an organization identifies an unmitigated risk that exceeds its established risk appetite,...", completion: "...management must formulate a formal risk treatment plan or allocate resources." },
+            { id: 3, stem: "Enforcing the principle of least privilege ensures that users are granted permissions...", completion: "...strictly limited to what is necessary for performing their assigned job duties." },
+            { id: 4, stem: "During a Stage 1 ISO certification audit, the auditor primarily evaluates...", completion: "...the organization's ISMS documentation, scope, and policy readiness." }
+        ];
+
+        function renderClauseMatcher() {
+            const container = document.getElementById('clausePairsContainer');
+            container.innerHTML = '';
+
+            const shuffledCompletions = [...clauseData].map(c => c.completion).sort(() => 0.5 - Math.random());
+
+            clauseData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-950 border border-slate-800 rounded-xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4";
+                div.innerHTML = `
+                    <div class="text-xs text-slate-200 font-mono w-full md:w-1/2 leading-relaxed">
+                        <strong class="text-cyan-400">Clause Stem #${item.id}:</strong> ${item.stem}
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <select id="clauseSelect-${item.id}" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-lg p-2 focus:border-cyan-500">
+                            <option value="">-- Select Matching Conclusion --</option>
+                            ${shuffledCompletions.map(c => `<option value="${c}">${c}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function checkClauseMatches() {
+            let score = 0;
+            clauseData.forEach(item => {
+                const sel = document.getElementById(`clauseSelect-${item.id}`);
+                if (sel.value === item.completion) {
+                    score++;
+                    sel.classList.add('border-emerald-500', 'bg-emerald-950/60');
+                    sel.classList.remove('border-rose-500');
+                } else {
+                    sel.classList.add('border-rose-500', 'bg-rose-950/60');
+                    sel.classList.remove('border-emerald-500');
+                }
+            });
+
+            const fb = document.getElementById('clauseFeedback');
+            fb.classList.remove('hidden');
+            fb.innerHTML = `Score: <strong class="text-cyan-400">${score} / ${clauseData.length}</strong> clauses matched correctly.`;
+        }
+
+        /* ==========================================================================
+           8. TAB 6: CISO & ISO AUDITOR STRATEGIC QUIZZES
+           ========================================================================== */
+        const quizQuestions = [
+            {
+                q: "During an ISO 27001 audit, the auditor finds that the Statement of Applicability (SoA) excludes physical security controls without documented rationale. What type of finding is issued?",
+                options: [
+                    "Major Non-Conformity",
+                    "Minor Non-Conformity",
+                    "Opportunity for Improvement (OFI)",
+                    "Observation"
+                ],
+                correct: 0,
+                explanation: "Excluding mandatory Annex A control areas without explicit risk assessment justification violates ISO 27001 Clause 6.1.3, resulting in a Major Non-Conformity."
+            },
+            {
+                q: "Which term describes the raw security risk exposure before any controls, mitigations, or safeguards are applied?",
+                options: [
+                    "Residual Risk",
+                    "Inherent Risk",
+                    "Target Risk",
+                    "Accepted Risk"
+                ],
+                correct: 1,
+                explanation: "Inherent Risk is the unmitigated risk level present prior to applying security controls."
+            },
+            {
+                q: "What is the primary objective of a Stage 1 ISO 27001 Certification Audit?",
+                options: [
+                    "To audit operational effectiveness over 12 months",
+                    "To review documentation, ISMS scope, and organizational readiness",
+                    "To issue the final accredited ISO certificate",
+                    "To perform penetration testing on company servers"
+                ],
+                correct: 1,
+                explanation: "Stage 1 audits focus on evaluating documentation readiness, ISMS boundaries, policies, and scope."
+            },
+            {
+                q: "Which cryptographic property guarantees that a sender cannot deny having transmitted a specific financial message?",
+                options: [
+                    "Confidentiality",
+                    "Availability",
+                    "Non-Repudiation",
+                    "Microsegmentation"
+                ],
+                correct: 2,
+                explanation: "Non-Repudiation provides cryptographic proof of message origin and integrity, preventing denial."
+            },
+            {
+                q: "Which ESP collocation correctly completes: 'The CISO recommended that top management __________ a formal risk treatment plan'?",
+                options: [
+                    "formulate",
+                    "do",
+                    "make",
+                    "build up"
+                ],
+                correct: 0,
+                explanation: "In formal CISO governance English, the correct collocation is 'formulate a risk treatment plan'."
+            }
+        ];
+
+        function renderQuizzes() {
+            const container = document.getElementById('quizQuestionsContainer');
+            container.innerHTML = '';
+            document.getElementById('quizTotal').textContent = quizQuestions.length;
+
+            quizQuestions.forEach((qObj, idx) => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-3";
+                div.innerHTML = `
+                    <div class="text-xs font-mono text-cyan-400 font-bold">QUESTION ${idx + 1} OF ${quizQuestions.length}</div>
+                    <p class="text-sm text-slate-100 font-semibold leading-relaxed">${qObj.q}</p>
+                    <div class="space-y-2 pt-2">
+                        ${qObj.options.map((opt, oIdx) => `
+                            <button onclick="answerQuiz(${idx}, ${oIdx}, this)" class="quiz-opt-${idx} w-full text-left p-3 rounded-lg border border-slate-800 bg-slate-900 hover:bg-slate-800 text-xs text-slate-200 transition flex items-center justify-between">
+                                <span>${opt}</span>
+                                <span class="opt-icon text-slate-600 font-mono">◯</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="quizExp-${idx}" class="hidden p-3 rounded-lg bg-slate-900 border border-cyan-500/30 text-xs text-slate-300 italic leading-relaxed">
+                        <strong class="text-cyan-400 font-mono">Executive Explanation:</strong> ${qObj.explanation}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        let quizUserScore = 0;
+        let answeredQuestions = new Set();
+
+        function answerQuiz(qIdx, optionIdx, btnElement) {
+            if (answeredQuestions.has(qIdx)) return;
+            answeredQuestions.add(qIdx);
+
+            const qObj = quizQuestions[qIdx];
+            const allOpts = document.querySelectorAll(`.quiz-opt-${qIdx}`);
+
+            if (optionIdx === qObj.correct) {
+                quizUserScore++;
+                btnElement.classList.add('border-emerald-500', 'bg-emerald-950/80', 'text-emerald-300');
+                btnElement.querySelector('.opt-icon').textContent = '✓';
+                btnElement.querySelector('.opt-icon').classList.add('text-emerald-400');
+            } else {
+                btnElement.classList.add('border-rose-500', 'bg-rose-950/80', 'text-rose-300');
+                btnElement.querySelector('.opt-icon').textContent = '✕';
+                btnElement.querySelector('.opt-icon').classList.add('text-rose-400');
+
+                // Highlight correct option
+                allOpts[qObj.correct].classList.add('border-emerald-500', 'bg-emerald-950/40');
+            }
+
+            document.getElementById('quizScore').textContent = quizUserScore;
+            document.getElementById(`quizExp-${qIdx}`).classList.remove('hidden');
+        }
+
+        /* ==========================================================================
+           9. MODAL HANDLERS
+           ========================================================================== */
+        function openDeployModal() {
+            document.getElementById('deployModal').classList.remove('hidden');
+        }
+
+        function closeDeployModal() {
+            document.getElementById('deployModal').classList.add('hidden');
+        }
+
+        function copyLiveUrl() {
+            const text = document.getElementById('liveUrlText').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Live URL copied to clipboard!");
+            }).catch(() => {
+                // Fallback
+                const input = document.createElement('input');
+                input.value = text;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert("Live URL copied!");
+            });
+        }
+    </script>
+</body>
+</html>
